@@ -1,0 +1,94 @@
+---
+title: "Untitled"
+author: "Paul Pearson"
+date: "June 5, 2015"
+output: html_document
+---
+
+
+```{r}
+set.seed(52)
+n <- 100 # number of points
+df <- data.frame( X = c(1,1,-1,-1, rnorm(n,0,0.2)),
+                  Y = c(1,-1,1,-1, rnorm(n,0,0.2)),
+                  Z = c(1,-1,-1,1, rnorm(n,0,0.2)))
+df
+dist(df)
+
+
+library(scatterplot3d)
+scatterplot3d(df$X, df$Y, df$Z, main="3D Scatterplot")
+
+library(Rtsne)
+
+ma <- as.matrix(df)
+tsne_out <- Rtsne(ma) # Run TSNE
+plot(tsne_out$Y,col=c("red","red","red","red", rep("blue",n)))
+```
+
+```{r}
+set.seed(53)
+n <- 100 # number of points
+m=4
+df <- data.frame( X = c(rnorm(m,1,0.2), rnorm(n,0,0.2)),
+                  Y = c(rnorm(m,1,0.2), rnorm(n,0,0.2)),
+                  Z = c(rnorm(m,1,0.2), rnorm(n,0,0.2)))
+df
+dist(df)
+library(scatterplot3d)
+scatterplot3d(df$X, df$Y, df$Z, main="3D Scatterplot")
+library(Rtsne)
+ma <- as.matrix(df)
+tsne_out <- Rtsne(ma) # Run TSNE
+plot(tsne_out$Y,col=c(rep("red",m), rep("blue",n)))
+```
+
+
+```{r}
+set.seed(54)
+n <- 100 # number of points
+m=3
+a=3
+b=3
+
+df <- data.frame( X = c(rnorm(a,1,0.2),rnorm(b,1,0.2),rnorm(m,-1,0.2), rnorm(n,0,0.2)),
+                  Y = c(rnorm(a,1,0.2),rnorm(b,-1,0.2),rnorm(m,1,0.2), rnorm(n,0,0.2)),
+                  Z = c(rnorm(a,1,0.2), rnorm(b,-1,0.2),rnorm(m,-1,0.2),rnorm(n,0,0.2)))
+df
+dist(df)
+library(scatterplot3d)
+scatterplot3d(df$X, df$Y, df$Z, main="3D Scatterplot")
+library(Rtsne)
+ma <- as.matrix(df)
+tsne_out <- Rtsne(ma) # Run TSNE
+plot(tsne_out$Y,col=c(rep("yellow",a),rep("green",b),rep("red",m), rep("blue",n)))
+```
+
+```{r}
+set.seed(54)
+n <- 100 # number of points
+m=10
+a=10
+b=10
+
+df <- data.frame( X = c(rnorm(a,10,0.2),rnorm(b,10,0.2),rnorm(m,-10,0.2), rnorm(n,0,0.2)),
+                  Y = c(rnorm(a,10,0.2),rnorm(b,-10,0.2),rnorm(m,10,0.2), rnorm(n,0,0.2)),
+                  Z = c(rnorm(a,10,0.2), rnorm(b,-10,0.2),rnorm(m,-10,0.2),rnorm(n,0,0.2)))
+df
+dist(df)
+library(scatterplot3d)
+scatterplot3d(df$X, df$Y, df$Z, main="3D Scatterplot")
+library(Rtsne)
+ma <- as.matrix(df)
+tsne_out <- Rtsne(ma) # Run TSNE
+plot(tsne_out$Y,col=c(rep("yellow",a),rep("green",b),rep("red",m), rep("blue",n)))
+```
+
+```{r}
+m1 <- mapper1D(
+    distance_matrix = dist(data.frame( x=2*cos(0.5*(1:100)), y=sin(1:100) )),
+    filter_values = 2*cos(0.5*(1:100)),
+    num_intervals = 10,
+    percent_overlap = 50,
+    num_bins_when_clustering = 10)
+
