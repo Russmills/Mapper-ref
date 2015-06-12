@@ -6,7 +6,6 @@ output: html_document
 ---
 
 ```{r}
-```{r}
 # Load the MNIST digit recognition dataset into R
 # http://yann.lecun.com/exdb/mnist/
 # assume you have all 4 files and gunzip'd them
