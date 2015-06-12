@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r}
+```{r}
 # Load the MNIST digit recognition dataset into R
 # http://yann.lecun.com/exdb/mnist/
 # assume you have all 4 files and gunzip'd them
@@ -51,9 +52,28 @@ train$n
 ```
 
 ```{R}
-set.seed(600001)
-x=train$x
-try=X[sample(nrow(X),size=500,replace=FALSE),]# number of random rows of 60000.
+#USE tsne
+set.seed(600003)
+X=train$x
+
+# create an index vector
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+labels <- train$y[ind]
+
+try=X[ind,]# number of random rows of 60000.
 library(tsne)
-result=tsne(try, initial_config = NULL, k = 2, initial_dims = 784, perplexity = 10, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
-plot(result)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 30, perplexity = 40, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen","changecolor1")
+plot(result,col=cc2)
+
+
+#USE Rtsne
+set.seed(600002)
+Y=train$x
+TryY=Y[sample(nrow(Y),size=10,replace=FALSE),]# number of random rows of 60000.
+library(Rtsne)
+Result1=Rtsne(Y, dims = 2, initial_dims = 30, perplexity = 30,
+        theta = 0.5, check_duplicates = FALSE, pca = TRUE, max_iter = 1000,
+        verbose = FALSE, is_distance = FALSE,)
+plot(Result1)
