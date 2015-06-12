@@ -91,4 +91,18 @@ m1 <- mapper1D(
     num_intervals = 10,
     percent_overlap = 50,
     num_bins_when_clustering = 10)
+```
+
+```{r}
+m2 <- mapper2D(
+    distance_matrix = dist(data.frame(  x=2*cos(1:100), y=sin(1:100) )), 
+    filter_values = list( 2*cos(1:100), sin(1:100) ),
+    num_intervals = c(5,5),
+    percent_overlap = 50,
+    num_bins_when_clustering = 10)
+
+g2 <- graph.adjacency(m2$adjacency, mode="undirected")
+plot(g2, layout = layout.auto(g2) )
+```
+
 
