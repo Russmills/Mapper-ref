@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r}
+```{r}
 # Load the MNIST digit recognition dataset into R
 # http://yann.lecun.com/exdb/mnist/
 # assume you have all 4 files and gunzip'd them
@@ -51,6 +52,7 @@ train$n
 ```
 
 ```{R}
+#Good one
 #USE tsne
 set.seed(600003)
 X=train$x
@@ -61,11 +63,85 @@ labels <- train$y[ind]
 
 try=X[ind,]# number of random rows of 60000.
 library(tsne)
-result=tsne(try, initial_config = NULL, k = 2, initial_dims = 30, perplexity = 40, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 30, perplexity = 30, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
 cc1=gsub("1","gold",labels)
-cc2=gsub("0","darkgreen","changecolor1")
+cc2=gsub("0","darkgreen",CC1)
 plot(result,col=cc2)
 
+#USE TSNE
+set.seed(600007)
+X=train$x
+
+# create an index vector
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+labels <- train$y[ind]
+
+try=X[ind,]# number of random rows of 60000.
+library(tsne)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 30, perplexity = 25, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen",cc1)
+plot(result,col=cc2)
+
+#EVEN BETTER
+#USE tsne
+set.seed(600007)
+X=train$x
+
+# create an index vector
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+labels <- train$y[ind]
+
+try=X[ind,]# number of random rows of 60000.
+library(tsne)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 22, perplexity = 20, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen",cc1)
+plot(result,col=cc2)
+
+#
+#USE TSNE
+set.seed(600007)
+X=train$x
+
+# create an index vector
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+labels <- train$y[ind]
+
+try=X[ind,]# number of random rows of 60000.
+library(tsne)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 30, perplexity = 12, max_iter = 1000, min_cost = 0.05, epoch_callback = NULL, whiten = TRUE, epoch=100)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen",cc1)
+plot(result,col=cc2)
+
+#initial 20, perp 30
+set.seed(600014)
+X=train$x
+# create an index vector
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+labels <- train$y[ind]
+
+try=X[ind,]# number of random rows of 60000.
+library(tsne)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 20, perplexity = 30, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen",cc1)
+plot(result,col=cc2)
+
+#initial 20, perp20
+set.seed(600014)
+X=train$x
+# create an index vector
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+labels <- train$y[ind]
+
+try=X[ind,]# number of random rows of 60000.
+library(tsne)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 20, perplexity = 20, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen",cc1)
+plot(result,col=cc2)
 
 #USE Rtsne
 set.seed(600002)
