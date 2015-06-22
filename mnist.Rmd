@@ -14,6 +14,7 @@ output: html_document
 # e.g. train$x is a 60000 x 784 matrix, each row is one digit (28x28)
 # call:  show_digit(train$x[5,])   to see a digit.
 # brendan o'connor - gist.github.com/39760 - anyall.org
+setwd("C:\Users\sumloaner\Downloads")
 
 load_mnist <- function() {
   load_image_file <- function(filename) {
@@ -36,17 +37,18 @@ load_mnist <- function() {
     close(f)
     y
   }
-  train <<- load_image_file('mnist/train-images-idx3-ubyte')
-  test <<- load_image_file('mnist/t10k-images-idx3-ubyte')
+  train <<- load_image_file('train-images-idx3-ubyte')
+  test <<- load_image_file('t10k-images-idx3-ubyte')
   
-  train$y <<- load_label_file('mnist/train-labels-idx1-ubyte')
-  test$y <<- load_label_file('mnist/t10k-labels-idx1-ubyte')  
+  train$y <<- load_label_file('train-labels-idx1-ubyte')
+  test$y <<- load_label_file('t10k-labels-idx1-ubyte')  
 }
 
 
 show_digit <- function(arr784, col=gray(12:1/12), ...) {
   image(matrix(arr784, nrow=28)[,28:1], col=col, ...)
 }
+
 load_mnist()
 train$n
 ```
@@ -129,7 +131,7 @@ cc1=gsub("1","gold",labels)
 cc2=gsub("0","darkgreen",cc1)
 plot(result,col=cc2)
 
-#initial 20, perp20
+#initial 10, perp30
 set.seed(600014)
 X=train$x
 # create an index vector
@@ -138,17 +140,23 @@ labels <- train$y[ind]
 
 try=X[ind,]# number of random rows of 60000.
 library(tsne)
-result=tsne(try, initial_config = NULL, k = 2, initial_dims = 20, perplexity = 20, max_iter = 1000, min_cost = 0, epoch_callback = NULL, whiten = TRUE, epoch=100)
+result=tsne(try, initial_config = NULL, k = 2, initial_dims = 10, perplexity = 27, max_iter = 1000, min_cost = 0.01, epoch_callback = NULL, whiten = TRUE, epoch=100)
 cc1=gsub("1","gold",labels)
 cc2=gsub("0","darkgreen",cc1)
 plot(result,col=cc2)
 
 #USE Rtsne
-set.seed(600002)
-Y=train$x
-TryY=Y[sample(nrow(Y),size=10,replace=FALSE),]# number of random rows of 60000.
+set.seed(620251)
+ind <- sample(nrow(train$x),size=6000,replace=FALSE)
+labels <- train$y[ind]
+Rtsne_input=train$x[ind,]# number of random rows of 60000.
 library(Rtsne)
-Result1=Rtsne(Y, dims = 2, initial_dims = 30, perplexity = 30,
-        theta = 0.5, check_duplicates = FALSE, pca = TRUE, max_iter = 1000,
+Rtsne_result=Rtsne(Rtsne_input, dims = 2, initial_dims = 20, perplexity = 20,
+        theta = 0.1, check_duplicates = TRUE, pca = TRUE, max_iter = 1000,
         verbose = FALSE, is_distance = FALSE,)
-plot(Result1)
+cc1=gsub("1","gold",labels)
+cc2=gsub("0","darkgreen",cc1)
+plot(Rtsne_result$Y,col=cc2)
+
+
+
