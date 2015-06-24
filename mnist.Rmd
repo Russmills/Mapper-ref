@@ -158,5 +158,80 @@ cc1=gsub("1","gold",labels)
 cc2=gsub("0","darkgreen",cc1)
 plot(Rtsne_result$Y,col=cc2)
 
+#SVD for MNIST
+---
+title: "SVD"
+author: "Jiyi Jiang"
+date: "June 24, 2015"
+output: html_document
+---
+
+
+```{r}
+R156=train$x[156,]
+M156=matrix(R156,28,28,)
+image(M156)
+M156_svd=svd(M156)
+
+d <- M156_svd$d
+u <- M156_svd$u
+v <- M156_svd$v
+
+for (i in c(3, 4, 5, 15, 20, 25))
+{
+    M156.compressed <- u[,1:i] %*% diag(d[1:i]) %*% t(v[,1:i])
+    image(M156.compressed)
+}
+
+
+#show_digit(train$x[1,])
+ind <- sample(nrow(X),size=2000,replace=FALSE)
+show_digit(train$x[159,])
+ 
+R156 <- train$x[159,]
+M156 <- matrix(R156, nrow=28)[,28:1]
+image(M156,col=gray(12:1/12))
+M156_svd <- svd(M156)
+d <- M156_svd$d
+u <- M156_svd$u
+v <- M156_svd$v
+
+for (i in c(8))
+{
+    M156.compressed <- u[,1:i] %*% diag(d[1:i]) %*% t(v[,1:i])
+    image(M156.compressed,col=gray(12:1/12))
+}
+
+x=abs(M156- M156.compressed)
+image(x, col=gray(12:1/12))
+```
+
+Pre-processing MNIST
+
+```{r, echo=FALSE}
+#show_digit(train$x[1,])
+ind <- sample(nrow(X),size=2,replace=FALSE)
+show_digit(train$x[1:2,])
+ 
+R156 <- c(train$x[ind,])
+M156 <- matrix(R156, nrow=28)[,28:1]
+image(M156,col=gray(12:1/12))
+M156_svd <- svd(M156)
+d <- M156_svd$d
+u <- M156_svd$u
+v <- M156_svd$v
+
+for (i in c(8))
+{
+    M156.compressed <- u[,1:i] %*% diag(d[1:i]) %*% t(v[,1:i])
+    image(M156.compressed,col=gray(12:1/12))
+}
+
+x=abs(M156- M156.compressed)
+image(x, col=gray(12:1/12))
+```
+
+
+
 
 
